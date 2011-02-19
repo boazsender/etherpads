@@ -1,0 +1,25 @@
+{
+  "name": "Etherpads",
+  "description": "A utility for managing your etherpads",
+  "version": "0.1",
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  },
+  "browser_action": {
+    "default_icon": "icon-19.png",
+    "default_title": "Etherpads",
+    "default_popup": "chrome-browser-action.html"
+  },
+  "page_action": {
+    "default_icon": "icon-19.png",
+    "default_title": "Etherpads",
+    "default_popup": "chrome-page-action.html"
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "contextMenus",
+    "notifications"
+  ]
+}
