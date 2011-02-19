@@ -7,7 +7,11 @@
     "default_title": "Etherpads",
     "default_popup": "chrome-browser-action.html"
   },
+  "permissions": ["history", "tabs"],
   "permissions": [
-    "history"
+    "unlimitedStorage",
+    "contextMenus",
+    "history",
+    "tabs"
   ]
 }
