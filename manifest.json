@@ -12,11 +12,6 @@
     "default_title": "Etherpads",
     "default_popup": "chrome-browser-action.html"
   },
-  "page_action": {
-    "default_icon": "icon-19.png",
-    "default_title": "Etherpads",
-    "default_popup": "chrome-page-action.html"
-  },
   "permissions": [
     "unlimitedStorage",
     "contextMenus",
