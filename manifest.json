@@ -17,6 +17,9 @@
       "https://*/*"
     ]
   }],
+  "icons": {
+    "128": "icon-128.png"
+  },
   "background_page": "background.html",
   "permissions": [
     "unlimitedStorage",
