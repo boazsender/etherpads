@@ -7,7 +7,17 @@
     "default_title": "Etherpads",
     "default_popup": "chrome-browser-action.html"
   },
-  "permissions": ["history", "tabs"],
+  "content_scripts" : [{
+    "js" : [
+      "jquery.js",
+      "app.js"
+    ],
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ]
+  }],
+  "background_page": "background.html",
   "permissions": [
     "unlimitedStorage",
     "contextMenus",

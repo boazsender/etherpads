@@ -1,0 +1,100 @@
+<html>
+<head>
+  <script src="http://platform.twitter.com/anywhere.js?id=Dxg45Ap0Bdu4iSdLPJRRFw&v=1" type="text/javascript"></script>
+  <script type="text/javascript" src="jquery.js"></script>  
+  
+  <script>
+    $(function(){
+        localStorage.setItem('pads', JSON.stringify([]))
+      if ( !localStorage.getItem('pads') ) {
+        localStorage.setItem('pads', JSON.stringify([]))
+      }
+
+      var updateStorage = function ( pad ) {
+
+        var pads = JSON.parse( localStorage.getItem('pads') );
+
+        pads.push( pad );
+        localStorage.setItem('pads', JSON.stringify( pads ) );
+
+        $('<li>', {
+          html: '<a href="' + pad.url + '">' + pad.title + '</a>'
+        })
+        .appendTo('ul')
+        
+        
+
+      }
+
+      $('.addpad').click(function( e ){
+        e.preventDefault();
+        chrome.tabs.getSelected(function( curTab ){
+
+          alert('pad.title')
+
+          updateStorage({
+            title: curTab.title,
+            url: curTab.location.href
+          })          
+        })
+
+      });
+      
+      var pads = JSON.parse( localStorage.getItem('pads') );
+      
+      for ( var pad in pads) {
+        $('<li>', {
+          html: '<a href="' + pads[pad].url + '">' + pads[pad].title + '</a>'
+        })
+        .appendTo('ul')
+      };
+
+/*
+      chrome.history.search({
+        'text': 'EtherPad:'
+      }, function( historyItems ) {
+        // For each history item, get details on all visits.
+        for ( var i = 0; i < historyItems.length; ++i ) {
+          $('<li>', {
+            html: '<a href="' + historyItems[i].url + '">' + historyItems[i].title + '</a>'
+          })
+          .appendTo('ul')
+
+        }
+      });
+*/
+
+
+    });
+    
+    twttr.anywhere(function (T) {
+      T("#login").connectButton();
+    });
+
+  </script>
+  <style>
+    body {
+      width: 200px;
+      font-size: 10px;
+      font-family: arial;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    span {
+      cursor: pointer;
+    }
+    span:hover {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <strong>Ethepads</strong> <span class="addpad">[+]</span>
+  <ul>
+  </ul>
+  <span id="login"></span>
+</body>
+</html>

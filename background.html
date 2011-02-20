@@ -1,0 +1,45 @@
+<html>
+<head>
+<script>
+  var bg = chrome.extension.getBackgroundPage();
+
+  chrome.tabs.onUpdated.addListener( function( tabId, changeInfo, curtab ) {
+    if ( changeInfo.status == "complete" ) {
+      chrome.tabs.getSelected( null, function( curTab ){
+
+        chrome.tabs.sendRequest( curTab.id, {
+          message: 'isEtherPad'
+        }, function( response ) {
+          if ( response ) {
+
+            if ( localStorage.getItem('pads') ) {
+              var pads = JSON.parse( localStorage.getItem('pads') );
+
+              console.log(pads.indexOf( curTab.url ))
+
+              if ( pads.indexOf( curTab.url ) != -1) {
+
+                pads.push( {title: curTab.title, url: curTab.url } );
+
+                localStorage.setItem('pads', JSON.stringify( pads ) );
+
+              }
+
+            } else {
+
+              localStorage.setItem('pads', JSON.stringify( [{title: curTab.title, url: curTab.url }] ) )
+
+            }
+
+          }
+
+        })
+
+      })
+    }
+  });
+</script>
+</head>
+<body>
+</body>
+</html>

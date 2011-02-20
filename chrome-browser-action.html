@@ -1,72 +1,27 @@
 <html>
 <head>
-  <script type="text/javascript" src="jquery.js"></script>  
-  
+  <script type="text/javascript" src="jquery.js"></script>
   <script>
     $(function(){
-        localStorage.setItem('pads', JSON.stringify([]))
-      if ( !localStorage.getItem('pads') ) {
-        localStorage.setItem('pads', JSON.stringify([]))
-      }
+      var bg = chrome.extension.getBackgroundPage(),
+          pads = JSON.parse( bg.localStorage.getItem('pads') );
 
-      var updateStorage = function ( pad ) {
-        
-
-        var pads = JSON.parse( localStorage.getItem('pads') );
-
-        pads.push( pad );
-        localStorage.setItem('pads', JSON.stringify( pads ) );
-
-        $('<li>', {
-          html: '<a href="' + pad.url + '">' + pad.title + '</a>'
-        })
-        .appendTo('ul')
-        
-        
-
-      }
-
-      chrome.tabs.getSelected(function( curTab ){
-
-        alert('pad.title')
-
-        updateStorage({
-          title: curTab.title,
-          url: curTab.location.href
-        })          
-      })
-      
-      $('.addpad').click(function( e ){
-        e.preventDefault();
-      });
-      
-      var pads = JSON.parse( localStorage.getItem('pads') );
-      
       for ( var pad in pads) {
         $('<li>', {
           html: '<a href="' + pads[pad].url + '">' + pads[pad].title + '</a>'
         })
         .appendTo('ul')
       };
-
-/*
-      chrome.history.search({
-        'text': 'EtherPad:'
-      }, function( historyItems ) {
-        // For each history item, get details on all visits.
-        for ( var i = 0; i < historyItems.length; ++i ) {
-          $('<li>', {
-            html: '<a href="' + historyItems[i].url + '">' + historyItems[i].title + '</a>'
-          })
-          .appendTo('ul')
-
-        }
+      
+      $('a').click(function(){
+        var path = $(this).attr('href');
+        
+        chrome.tabs.create({
+          url: path
+        })
       });
-*/
-
 
     });
-    
   </script>
   <style>
     body {
@@ -75,18 +30,15 @@
       font-family: arial;
     }
     ul {
-      list-style-type: none;
-      padding: 0;
-      cursor: pointer;
-    }
-    span {
-      cursor: pointer;
+      list-style-type: disc;
+      padding-left: 15px;
     }
   </style>
 </head>
 <body>
-  <strong>Ethepads</strong> <span class="addpad">[+]</span>
+  <strong>Etherpads</strong>
   <ul>
   </ul>
+  <span id="login"></span>
 </body>
 </html>
