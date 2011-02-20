@@ -14,16 +14,14 @@
           message: 'isEtherPad'
 
         }, function( response ) {
-          console.log(response)
+
           if ( response ) {
 
             if ( localStorage.getItem('pads') ) {
 
               var pads = JSON.parse( localStorage.getItem('pads') );
 
-              console.log(localStorage.getItem('pads').indexOf("http://typewith.me/html5-learning-concussion"))
-
-              if ( localStorage.getItem('pads').indexOf("http://typewith.me/html5-learning-concussion") != -1) {
+              if ( localStorage.getItem('pads').indexOf( curTab.url ) == -1) {
 
                 pads.push( {title: curTab.title, url: curTab.url } );
 

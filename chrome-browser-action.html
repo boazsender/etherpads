@@ -1,24 +1,30 @@
 <html>
 <head>
-  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="jquery.min.js"></script>
   <script>
     $(function(){
       var bg = chrome.extension.getBackgroundPage(),
           pads = JSON.parse( bg.localStorage.getItem('pads') );
 
       for ( var pad in pads) {
+        var padUrl = pads[pad].url,
+            padTitle = pads[pad].title.indexOf(':') == -1 ? pads[pad].title : pads[pad].title.split(':')[1];
+
         $('<li>', {
-          html: '<a href="' + pads[pad].url + '">' + pads[pad].title + '</a>'
+          html: '<a href="' + padUrl + '">' + padTitle  + '</a>'
         })
         .appendTo('ul')
+
       };
-      
+
       $('a').click(function(){
+
         var path = $(this).attr('href');
-        
+
         chrome.tabs.create({
           url: path
         })
+
       });
 
     });

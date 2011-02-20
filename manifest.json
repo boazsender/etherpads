@@ -9,7 +9,7 @@
   },
   "content_scripts" : [{
     "js" : [
-      "jquery.js",
+      "jquery.min.js",
       "app.js"
     ],
     "matches": [
