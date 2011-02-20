@@ -4,20 +4,26 @@
   var bg = chrome.extension.getBackgroundPage();
 
   chrome.tabs.onUpdated.addListener( function( tabId, changeInfo, curtab ) {
+
     if ( changeInfo.status == "complete" ) {
+
       chrome.tabs.getSelected( null, function( curTab ){
 
         chrome.tabs.sendRequest( curTab.id, {
+
           message: 'isEtherPad'
+
         }, function( response ) {
+          console.log(response)
           if ( response ) {
 
             if ( localStorage.getItem('pads') ) {
+
               var pads = JSON.parse( localStorage.getItem('pads') );
 
-              console.log(pads.indexOf( curTab.url ))
+              console.log(localStorage.getItem('pads').indexOf("http://typewith.me/html5-learning-concussion"))
 
-              if ( pads.indexOf( curTab.url ) != -1) {
+              if ( localStorage.getItem('pads').indexOf("http://typewith.me/html5-learning-concussion") != -1) {
 
                 pads.push( {title: curTab.title, url: curTab.url } );
 
@@ -36,7 +42,9 @@
         })
 
       })
+
     }
+
   });
 </script>
 </head>
