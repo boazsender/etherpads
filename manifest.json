@@ -23,8 +23,6 @@
   "background_page": "background.html",
   "permissions": [
     "unlimitedStorage",
-    "contextMenus",
-    "history",
     "tabs"
   ]
 }
